@@ -228,9 +228,9 @@ export class LogoffRevocationService {
     const { logoffMethod, customParams } = logoutAuthOptions || {};
 
     if (!logoffMethod || logoffMethod === 'GET') {
-      this.redirectService.redirectTo(endSessionUrl);
-
       this.resetAuthDataService.resetAuthorizationData(config, allConfigs);
+
+      this.redirectService.redirectTo(endSessionUrl);
 
       return of(null);
     }

@@ -513,6 +513,10 @@ describe('Logout and Revoke Service', () => {
       spyOn(urlService, 'getEndSessionUrl').and.returnValue('someValue');
 
       const redirectSpy = spyOn(redirectService, 'redirectTo');
+      const resetAuthorizationDataSpy = spyOn(
+        resetAuthDataService,
+        'resetAuthorizationData'
+      );
 
       spyOn(checkSessionService, 'serverStateChanged').and.returnValue(false);
       const config = { configId: 'configId1' };
@@ -523,6 +527,7 @@ describe('Logout and Revoke Service', () => {
       // Assert
       result$.subscribe(() => {
         expect(redirectSpy).toHaveBeenCalledOnceWith('someValue');
+        expect(resetAuthorizationDataSpy).toHaveBeenCalledBefore(redirectSpy);
       });
     }));
 
